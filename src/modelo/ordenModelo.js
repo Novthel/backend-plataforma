@@ -1,5 +1,5 @@
-const { model, Schema } = require("mongoose");
-const { genSalt, hash } = require("bcryptjs");
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const ordenSchema = new Schema({
     
@@ -51,6 +51,5 @@ const ordenSchema = new Schema({
     }
 });
 
-const OrdenModelo = model("ordenes", ordenSchema);
-
-exports.OrdenModelo = OrdenModelo;
+const ordenModelo = mongoose.model("ordenes", ordenSchema);
+exports.ordenModelo = ordenModelo;
