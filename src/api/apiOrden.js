@@ -36,7 +36,7 @@ ordenRutas.post("/listar", function (req, res) {
 })
 
 
-ordenRutas.post("/guardar", function (req, res) {
+ordenRutas.post("/agregar", function (req, res) {
     const data = req.body;
     const orden = new ordenModelo(data);
     orden.save(function (error) {
