@@ -69,15 +69,14 @@ ordenRutas.post("/editar", (req, res) => {
 
 ordenRutas.post("/eliminar", (req, res) => {
     const { codigo } = req.body;
-    let i = 0;
-    for (const o of ordenes) {
-        if (o.title.toLowerCase() == codigo.toLowerCase()) {
-            ordenes.splice(i, 1);
-            break;
+    ordenModelo.deleteOne({ codigo }, function (error) {
+        if (error) {
+            return res.send({ estado: "error", msg: "ERROR al buscar No. Orden" })
+        } else {
+                res.send({ estado: "ok", msg: "Orden Eliminada Exitosamente" });
+            }
         }
-        i++;
-    }
-    res.send({ estado: "ok", msg: "Orden de despacho Eliminada!" });
+    )
 })
 
 exports.ordenRutas = ordenRutas;
