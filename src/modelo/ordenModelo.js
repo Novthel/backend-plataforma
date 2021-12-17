@@ -58,7 +58,7 @@ const ordenSchema = new Schema({
     fecha:{
         type: "date",
         required: true,
-        default: new Date
+        default: new Date 
     },
 });
 
