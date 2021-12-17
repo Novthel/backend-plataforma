@@ -7,10 +7,13 @@ const { usuarioGuard } = require('../guard/usuarioGuard')
 
 rutasUsuario.post("/login", async function (req, res) {
    
-    const { usuario, password } = req.body;                     // Por medio de desestructuracion Capturo el usuario y password
-    const user = await usuarioModelo.findOne({ usuario });      // Busqueda en BD el usuario
+    const { usuario, password } = req.body;  
+    
+    const user = await usuarioModelo.findOne({ usuario: req.body.usuario});
+    const allUser= await usuarioModelo.find()
+    console.log(user)      // Busqueda en BD el usuario
     if (!user) {
-        return res.status(401).send({ estado: "error", msg: "Usuario o Contraseña incorrecta" });
+        return res.status(404).send({ estado: "error", msg: "Usuario o Contraseña incorrecta" });
     }
     const clave = await compare(password, user.password);
     if (clave === true) {
@@ -27,7 +30,7 @@ rutasUsuario.post("/login", async function (req, res) {
     return res.status(401).send({ estado: "error", msg: "Usuario o Contraseña incorrecta" });
 });
 
-rutasUsuario.post("/registro", usuarioGuard, function (req, res) {
+rutasUsuario.post("/registro",  function (req, res) {
     const datos = req.body;
     const user = new usuarioModelo(datos);
     user.save(function (error) {
