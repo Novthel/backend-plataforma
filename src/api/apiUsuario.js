@@ -27,7 +27,7 @@ rutasUsuario.post("/login", async function (req, res) {
     return res.status(401).send({ estado: "error", msg: "Usuario o Contraseña incorrecta" });
 });
 
-rutasUsuario.post("/registro", usuarioGuard, function (req, res) {
+rutasUsuario.post("/registro", function (req, res) {
     const datos = req.body;
     const user = new usuarioModelo(datos);
     user.save(function (error) {

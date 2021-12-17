@@ -21,6 +21,11 @@ const ordenSchema = new Schema({
         required: true
     },
 
+    descripcion: {
+        type: "string",
+        require: true
+    },
+
     peso: {
         type: "string",
         require: true
@@ -48,7 +53,13 @@ const ordenSchema = new Schema({
     estado: {
         type: "string",
         require: true
-    }
+    },
+
+    fecha:{
+        type: "date",
+        required: true,
+        default: new Date
+    },
 });
 
 const ordenModelo = mongoose.model("ordenes", ordenSchema);
