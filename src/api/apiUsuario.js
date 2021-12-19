@@ -38,5 +38,31 @@ rutasUsuario.post("/registro", function (req, res) {
     });
 })
 
+rutasUsuario.get("/listar", function (req, res) {
+    usuarioModelo.find({}, function (error, user) {
+        if (error) {
+            return res.send({ estado: "error", msg: "ERROR al buscar Producto" })
+        } else {
+            if (user !== null) {
+                res.send({ estado: "ok", msg: "Producto Encontrado", data: user });
+            } else {
+                res.send({ estado: "error", msg: "Producto NO Encontrado" });
+            }
+        }
+    })
+})
+
+
+rutasUsuario.delete("/eliminar", (req, res) => {
+    const { usuario } = req.body;
+    usuarioModelo.deleteOne({ usuario }, function (error) {
+        if (error) {
+            return res.send({ estado: "error", msg: "ERROR al buscar No. Orden" })
+        } else {
+                res.send({ estado: "ok", msg: "Usuario Eliminado Exitosamente" });
+            }
+        }
+    )
+})
 
 exports.rutasUsuario = rutasUsuario;
