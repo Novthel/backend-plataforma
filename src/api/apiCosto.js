@@ -3,43 +3,23 @@ const costoRutas = Router();
 const { costoModelo } = require('../modelo/costoModelo')
 
 
-/* costoRutas.put("/editar", function (req, res) {
+costoRutas.post("/editar", function (req, res) {
     const data = req.body;
     console.log(data);
-    if (data.costo !== null && data.costo !== "") {
-        costoModelo.updateOne( { $set: { costo: data.costo } }, function (error, c) {
+    if (data.costo !== null && data.costo !== "" &&  data.costo !== undefined) {
+        console.log(data.costo);
+        costoModelo.updateOne( { $set: { costo: data.costo } }, function (error) {
             if (error) {
                 console.log(error)
-                return res.status(500).json({ estado: "error", msg: "ERROR: costo NO Actualizado!"})
+                return res.status(500).json({ estado: "error", msg: "ERROR: No se pudo Editar !" })
             }
-            res.status(200).json({ estado: "ok", msg: "costo Actualizado!" , data: c })
-            console.log(data)
+            res.status(200).json({ estado: "ok", msg: "Cambio Exitoso!" })
         })
     } else {
-        const { costo } = data;
-        const datos = { costo };
-        const prod = new costoModelo(datos);
-        prod.save(function (error) {
-            if (error) {
-                res.send({ estado: "error", msg: "ERROR: costo NO Guardado :(" });
-                return false;
-            }
-            res.send({ estado: "ok", msg: "costo Guardado!" });
-        })
-    }
-}); */
-
-costoRutas.put("/editar", (req, res) => {
-    const { costo } = req.body;
-    costoModelo.updateOne({ costo }, function (error) {
-        if (error) {
-            return res.status(500).json({ estado: "error", msg: "ERROR al editar Costo" })
-        } else {
-            res.status(200).json({ estado: "ok", msg: "Costo editado Exitosamente" });
-            }
-        }
-    )
-})
+            res.status(500).json({ estado: "error", msg: "ERROR: No se pudo Editar :(" });
+        
+            }  
+        });
 
 
 costoRutas.get("/listar", function (req, res) {

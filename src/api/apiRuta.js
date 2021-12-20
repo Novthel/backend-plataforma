@@ -8,10 +8,10 @@ routerRutas.post("/agregar", function (req, res) {
     const r = new rutaModelo(data);
     r.save(function (error) {
         if (error) {
-            res.send({ estado: "error", msg: "ERROR: Ruta NO Guardada :(" });
+            res.status(500).json({ estado: "error", msg: "ERROR: Ruta NO Guardada :(" });
             return false;
         }
-        res.send({ estado: "ok", msg: "Ruta Guardada" });
+        res.status(200).json({ estado: "ok", msg: "Ruta Guardada" });
     }) 
 });
 
@@ -46,24 +46,12 @@ routerRutas.get("/listar", function (req, res) {
 })
 
 
-
-/* routerRutas.put("/editar", (req, res) => {
-    const { ruta, origen, destino, distancia } = req.body;
-    rutaModelo.updateOne({ ruta, origen, destino, distancia }, function (error) {
-        if (error) {
-            return res.status(500).json({ estado: "error", msg: "ERROR al editar Ruta" })
-        } else {
-            res.status(200).json({ estado: "ok", msg: "Ruta editada Exitosamente" });
-            }
-        }
-    )
-})
- */
-
 routerRutas.post("/editar", function (req, res) {
     const data = req.body;
-    if (data._id !== null && data._id !== "") {
-        rutaModelo.updateOne({ _id: data._id }, { $set: { ruta: data.ruta, origen: data.origen, destino: data.destino, distancia: data.distancia } }, function (error) {
+    console.log(data);
+    if (data.ruta !== null && data.ruta !== "" &&  data.ruta !== undefined) {
+        console.log(data.ruta);
+        rutaModelo.updateOne({ ruta: data.ruta }, { $set: { ruta: data.ruta, origen: data.origen, destino: data.destino, distancia: data.distancia } }, function (error) {
             if (error) {
                 console.log(error)
                 return res.status(500).json({ estado: "error", msg: "ERROR: Ruta NO Editada!" })
@@ -71,20 +59,10 @@ routerRutas.post("/editar", function (req, res) {
             res.status(200).json({ estado: "ok", msg: "Cambio Exitoso!" })
         })
     } else {
-        const { ruta, origen, destino, distancia } = data;
-        const datos = { ruta, origen, destino, distancia };
-        const r = new rutaModelo(datos);
-        r.save(function (error) {
-            if (error) {
-                res.status(500).json({ estado: "error", msg: "ERROR: Ruta NO Guardada :(" });
-                return false;
-            }
-            res.status(200).json({ estado: "ok", msg: "Ruta Guardada!" });
-        })
-    }
-});
-
-
+            res.status(500).json({ estado: "error", msg: "ERROR: Ruta NO Guardada :(" });
+        
+            }  
+        });
 
 
 routerRutas.delete("/eliminar", (req, res) => {

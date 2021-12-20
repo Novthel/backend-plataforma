@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const costoSchema = new Schema({
 
     precio: {
-        type: "string",
+        type: "number",
         required: true
     }
     
