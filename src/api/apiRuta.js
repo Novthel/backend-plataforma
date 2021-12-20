@@ -49,7 +49,7 @@ routerRutas.get("/listar", function (req, res) {
 routerRutas.post("/editar", function (req, res) {
     const data = req.body;
     console.log(data);
-    if (data.ruta !== null && data.ruta !== "" &&  data.ruta !== undefined) {
+    if (data.origen !== null && data.origen !== "" &&  data.origen !== undefined) {
         console.log(data.ruta);
         rutaModelo.updateOne({ ruta: data.ruta }, { $set: { ruta: data.ruta, origen: data.origen, destino: data.destino, distancia: data.distancia } }, function (error) {
             if (error) {

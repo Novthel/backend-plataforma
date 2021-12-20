@@ -5,15 +5,14 @@ const { costoModelo } = require('../modelo/costoModelo')
 
 costoRutas.post("/editar", function (req, res) {
     const data = req.body;
-    console.log(data);
-    if (data.costo !== null && data.costo !== "" &&  data.costo !== undefined) {
-        console.log(data.costo);
-        costoModelo.updateOne( { $set: { costo: data.costo } }, function (error) {
+    if (data.precio !== null && data.precio !== "" &&  data.precio !== undefined) {
+        console.log(data.precio);
+        costoModelo.updateOne( { $set: { precio: data.precio } }, function (error) {
             if (error) {
                 console.log(error)
-                return res.status(500).json({ estado: "error", msg: "ERROR: No se pudo Editar !" })
+                return res.status(500).json({ estado: "error", msg: "ERROR: No se pudo Editar !"})
             }
-            res.status(200).json({ estado: "ok", msg: "Cambio Exitoso!" })
+            res.status(200).json({ estado: "ok", msg: "Cambio Exitoso! "})
         })
     } else {
             res.status(500).json({ estado: "error", msg: "ERROR: No se pudo Editar :(" });
