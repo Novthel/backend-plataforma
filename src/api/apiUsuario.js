@@ -11,7 +11,6 @@ rutasUsuario.post("/login", async function (req, res) {
     
     const user = await usuarioModelo.findOne({ usuario: req.body.usuario});
     const allUser= await usuarioModelo.find()
-    console.log(user)      // Busqueda en BD el usuario
     if (!user) {
         return res.status(404).send({ estado: "error", msg: "Usuario o Contraseña incorrecta" });
     }
@@ -67,5 +66,25 @@ rutasUsuario.delete("/eliminar", (req, res) => {
         }
     )
 })
+
+rutasUsuario.post("/editar", function (req, res) {
+    const data = req.body;
+    console.log('voy por aqui');
+    console.log(data);
+    if (data.usuario !== null && data.usuario !== "" &&  data.usuario !== undefined) {
+        
+        usuarioModelo.updateOne({ usuario: data.usuario }, { $set: { nombre: data.nombre, apellido: data.apellido, usuario: data.usuario,  celular: data.celular, correo: data.correo, password : data.password, rol: data.rol} }, function (error) {
+            if (error) {
+                console.log(error)
+                return res.status(500).json({ estado: "error", msg: "ERROR: No se pudo Editar !"})
+            }
+            res.status(200).json({ estado: "ok", msg: "Cambio Exitoso! "})
+        })
+    } else {
+            res.status(500).json({ estado: "error", msg: "ERROR: No se pudo Editar :(" });
+        
+            }  
+        });
+
 
 exports.rutasUsuario = rutasUsuario;

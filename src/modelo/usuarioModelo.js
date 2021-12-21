@@ -22,7 +22,7 @@ const usuarioSchema = new Schema({
     },
 
     celular: {
-        type: "number",
+        type: "string",
         required: true,
     },
 
@@ -34,13 +34,12 @@ const usuarioSchema = new Schema({
 
     password: {
         type: "string",
-        required: true,
         min: 6
     },
 
     rol: {
         type: "string",
-        required: true
+       
     }
 
 });
