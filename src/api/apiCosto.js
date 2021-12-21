@@ -35,4 +35,19 @@ costoRutas.get("/listar", function (req, res) {
     })
 })
 
+
+costoRutas.post("/agregar", function (req, res) {
+    const data = req.body;
+    const valor = new costoModelo(data);
+   valor.save(function (error) {
+        if (error) {
+            res.send({ estado: "error", msg: "ERROR: Producto NO Guardado :(" });
+            return false;
+        }
+        res.send({ estado: "ok", msg: "Producto Guardado!" });
+    }) 
+});
+
+
+
 exports.costoRutas = costoRutas;
